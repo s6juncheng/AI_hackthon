@@ -28,5 +28,9 @@ https://github.com/tomekkorbak/lstm-for-aspect-based-sentiment-analysis
 ## TODO
 
 1. More intuitive visualizations, fun plots
-2. The Word Cloud library can be downloaded from GitHub. You can find detailed instructions here:
+2. The Word Cloud library can be downloaded from GitHub. You can find detailed instructions here
 https://github.com/amueller/word_cloud
+
+### About Naive Bayes
+1. Try to improve data clean steps, with count or tf-idf, remove every load document frequency words (min_df)...
+2. Do a cross-validation with 80% of the data, test performance on test data. To make use of more data

@@ -1,0 +1,4 @@
+data/*
+NN_sentiment/
+__pycache__/
+.ipynb_checkpoints/

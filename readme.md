@@ -3,6 +3,7 @@ A deeplearning model to classify true/fake news.
 
 ## Contributors
 Jun Cheng
+
 Weiwei Chen
 
 ## Examples

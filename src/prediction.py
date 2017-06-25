@@ -60,24 +60,28 @@ def word2indx(text, trained_tokenizer, max_len=2000):
     return data
 
 # Prediction
-def predict_from_index(model, index):
+def predict_from_index(model, index, verbose = True):
     prediction = model.predict(index).flatten()
     prob_true = float(prediction[0] * 100)
     prob_false = float(prediction[1] * 100)
-    if prob_true >= 70.0:
-        print("Likely a true news! (%0.3f percent confident)" % prob_true)
-    elif prob_true >= 50.0:
-        print("Maybe a true news, not every sure (%0.3f percent confident)")
-    elif (prob_true < 50.0) & (prob_true > 30.0):
-        print("This is mabye a fake news (%0.3f percent confident)" % prob_false)
-    elif prob_false >= 70.0:
-        print("Attention! Likely a fake news! (%0.3f percent confident)"% prob_false)
-    else:
-        print("We are %0.3f percent confident that this is a true news" % prob_true)
-    return prob_true
+    if verbose:
+        if prob_true >= 80.0:
+            quote = "Likely a true news!" 
+        elif (prob_true >= 60.0) & (prob_true < 80.0):
+            quote = "Maybe a true news"
+        elif (prob_true >= 40.0) & (prob_true < 60.0):
+            quote = "Mabye a fake news"
+        elif (prob_true > 20) & (prob_true < 40.0):
+            quote = "Mabye a fake news"
+        elif prob_true <= 20.0:
+            quote = "Attention! Likely a fake news!"
+        else:
+            quote = "We are %0.3f percent confident that this is a true news" % prob_true
+    return prob_true, quote
 
 def predict_news(model, url, trained_tokenizer, max_len=2000):
     title, text = get_text_title(url)
     cleaned = clean_text(text)
     index = word2indx(cleaned, trained_tokenizer, max_len)
-    predict_from_index(model, index)
+    prob_true, quote = predict_from_index(model, index)
+    return prob_true, quote
